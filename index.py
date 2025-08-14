@@ -12,4 +12,4 @@
 #                                      source venv/bin/activate   # Mac/Linux
 # 6. Instalar Flask:                   pip install flask
 # 7. Ejecutar la aplicación Flask:     python app.py
-# 8. Abrir navegador y acceder a:     http://localhost:5000/
+# 8. Abrir navegador y acceder a:     http://127.0.0.1:5000
