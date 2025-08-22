@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page_title }} - Mi Proyecto Flask{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div class="container">
+        <h1 class="page-title">
+            <i class="fas fa-info-circle"></i> Acerca de Nosotros
+        </h1>
+        <p class="page-subtitle">Conoce más sobre nuestro equipo y misión</p>
+    </div>
+</div>
+
+<section class="about-content">
+    <div class="container">
+        <div class="about-grid">
+            <div class="about-text">
+                <h2>Nuestra Historia</h2>
+                <p>
+                    Somos un equipo apasionado de desarrolladores dedicados a crear 
+                    soluciones web innovadoras usando Flask y Python. Nuestro proyecto 
+                    nació de la necesidad de simplificar el desarrollo web mientras 
+                    mantenemos la flexibilidad y el poder que Python nos ofrece.
+                </p>
+                <p>
+                    Con años de experiencia en desarrollo web, hemos perfeccionado 
+                    nuestras habilidades para ofrecer aplicaciones robustas, 
+                    escalables y fáciles de mantener.
+                </p>
+                
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">50+</div>
+                        <div class="stat-label">Proyectos Completados</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">3</div>
+                        <div class="stat-label">Años de Experiencia</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Clientes Satisfechos</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="about-image">
+                <div class="image-placeholder">
+                    <i class="fas fa-users fa-5x"></i>
+                    <p>Nuestro Equipo</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="team-section">
+    <div class="container">
+        <h2 class="section-title">Nuestro Equipo</h2>
+        <div class="team-grid">
+            {% for member in team_members %}
+            <div class="team-card">
+                <div class="team-avatar">
+                    <i class="fas fa-user-circle fa-3x"></i>
+                </div>
+                <div class="team-info">
+                    <h3 class="team-name">{{ member.name }}</h3>
+                    <p class="team-role">{{ member.role }}</p>
+                    <div class="team-social">
+                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-link"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="values-section">
+    <div class="container">
+        <h2 class="section-title">Nuestros Valores</h2>
+        <div class="values-grid">
+            <div class="value-item">
+                <div class="value-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <h3>Pasión</h3>
+                <p>Amamos lo que hacemos y se refleja en cada línea de código.</p>
+            </div>
+            <div class="value-item">
+                <div class="value-icon">
+                    <i class="fas fa-handshake"></i>
+                </div>
+                <h3>Colaboración</h3>
+                <p>Trabajamos juntos para alcanzar objetivos extraordinarios.</p>
+            </div>
+            <div class="value-item">
+                <div class="value-icon">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
+                <h3>Innovación</h3>
+                <p>Siempre buscamos nuevas formas de mejorar y evolucionar.</p>
+            </div>
+            <div class="value-item">
+                <div class="value-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>Calidad</h3>
+                <p>Nos comprometemos con la excelencia en cada proyecto.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="mission-section">
+    <div class="container">
+        <div class="mission-content">
+            <h2>Nuestra Misión</h2>
+            <p class="mission-text">
+                Empoderar a desarrolladores y empresas con herramientas web modernas 
+                y eficientes, creando soluciones que no solo resuelven problemas, 
+                sino que inspiran nuevas posibilidades en el mundo digital.
+            </p>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Animaciones para la página About
+    document.addEventListener('DOMContentLoaded', function() {
+        // Animación de contador para las estadísticas
+        const statNumbers = document.querySelectorAll('.stat-number');
+        
+        const animateCounter = (element, target) => {
+            const targetNum = parseInt(target.replace(/[^0-9]/g, ''));
+            let current = 0;
+            const increment = targetNum / 50;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= targetNum) {
+                    element.textContent = target;
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(current) + (target.includes('%') ? '%' : '+');
+                }
+            }, 50);
+        };
+
+        // Observer para activar animaciones cuando entren en viewport
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const target = entry.target.textContent;
+                    animateCounter(entry.target, target);
+                    observer.unobserve(entry.target);
+                }
+            });
+        });
+
+        statNumbers.forEach(stat => observer.observe(stat));
+    });
+</script>
+{% endblock %}

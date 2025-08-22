@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page_title }} - Mi Proyecto Flask{% endblock %}
+
+{% block content %}
+<div class="hero-section">
+    <div class="hero-content">
+        <h1>¡Bienvenido, {{ user_name }}!</h1>
+        <p class="hero-subtitle">Explora nuestro increíble proyecto Flask con plantillas dinámicas</p>
+        <div class="hero-buttons">
+            <a href="{{ url_for('about') }}" class="btn btn-primary">
+                <i class="fas fa-rocket"></i> Conocer Más
+            </a>
+            <a href="{{ url_for('contact') }}" class="btn btn-secondary">
+                <i class="fas fa-envelope"></i> Contactanos
+            </a>
+        </div>
+    </div>
+</div>
+
+<section class="features-section">
+    <div class="container">
+        <h2 class="section-title">Características Principales</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-code"></i>
+                </div>
+                <h3>Desarrollo Moderno</h3>
+                <p>Utilizamos las mejores prácticas de desarrollo web con Flask y Python.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <h3>Diseño Responsivo</h3>
+                <p>Nuestro diseño se adapta perfectamente a todos los dispositivos.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-lightning-bolt"></i>
+                </div>
+                <h3>Alto Rendimiento</h3>
+                <p>Optimizado para una experiencia de usuario rápida y fluida.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="projects-section">
+    <div class="container">
+        <h2 class="section-title">Nuestros Proyectos</h2>
+        <div class="projects-grid">
+            {% for project in projects %}
+            <div class="project-card">
+                <div class="project-header">
+                    <h3>{{ project.name }}</h3>
+                    <i class="fas fa-project-diagram project-icon"></i>
+                </div>
+                <p class="project-description">{{ project.description }}</p>
+                <div class="project-footer">
+                    <button class="btn btn-small">Ver Detalles</button>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="cta-section">
+    <div class="container">
+        <div class="cta-content">
+            <h2>¿Listo para comenzar?</h2>
+            <p>Únete a nosotros y descubre todo lo que podemos hacer juntos.</p>
+            <a href="{{ url_for('contact') }}" class="btn btn-primary btn-large">
+                <i class="fas fa-paper-plane"></i> Comencemos
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Animación simple para las tarjetas
+    document.addEventListener('DOMContentLoaded', function() {
+        const cards = document.querySelectorAll('.feature-card, .project-card');
+        cards.forEach((card, index) => {
+            setTimeout(() => {
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, index * 100);
+        });
+    });
+</script>
+{% endblock %}
